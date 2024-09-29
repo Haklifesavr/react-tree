@@ -1,11 +1,13 @@
+/* Tree Item Styling */
 .tree-item-wrapper {
     position: relative;
 }
 
+/* Edit Icon Styling */
 .edit-icon {
     position: absolute;
-    top: 10px; /* Keep the icon fixed to the top */
-    right: 10px; /* Position it 10px from the right */
+    top: 12px;
+    right: 10px;
     cursor: pointer;
     font-size: 16px;
     color: #555;
@@ -17,32 +19,59 @@
     color: #007bff;
 }
 
+/* Tree Container Styling */
 .tree-container {
     background-color: #f1f1f1; /* Light background shade */
-    min-height: 97.2vh;
+    width: 100%;
+    max-width: 900px;
+    height: auto;
     max-height: 100vh;
     overflow-y: auto;
     border: 2px solid lightgray;
+    margin: 0 auto; /* Center the container */
+    padding: 10px;
 }
 
-::-webkit-scrollbar {
-    width: 8px;  /* Reduced from 10px for vertical scrollbars */
-    /* height: 6px !important; */
-  }
-  
-  ::-webkit-scrollbar-track {
-    background: #f1f1f1;
-  }
-  
-  ::-webkit-scrollbar-thumb {
-    background: #888;
-    border-radius: 4px; /* Slightly reduced to match the new size */
-  }
-  
-  ::-webkit-scrollbar-thumb:hover {
-    background: #555;
-  }
+/* Search Bar Styling */
+.search-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 10px;
+    margin-bottom: 20px;
+    width: 100%;
+    max-width: 600px; /* Matches tree-container width */
+    position: relative;
+}
 
+.search-input {
+    width: 100%;
+    padding: 10px 40px 10px 20px; /* Added padding for icon */
+    font-size: 16px;
+    border: 1px solid lightgray;
+    border-radius: 20px;
+    outline: none;
+}
+
+.search-button {
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    font-size: 18px;
+}
+
+/* Highlight Matching Items */
+.highlight {
+    background-color: rgb(121, 219, 206);
+    color: black;
+    font-weight: bold;
+}
+
+/* Modal Styling */
 .modal {
     position: fixed;
     top: 0;
@@ -94,6 +123,7 @@
     font-family: 'Arial', sans-serif;
 }
 
+/* Button Group Styling */
 .button-group {
     display: flex;
     justify-content: flex-end;
@@ -128,4 +158,28 @@
 
 .cancel-button:hover {
     background-color: #d32f2f;
+}
+
+/* Scrollbar Styling */
+::-webkit-scrollbar {
+    width: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: #f1f1f1;
+}
+
+::-webkit-scrollbar-thumb {
+    background-color: #888;
+    border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #555;
+}
+
+/* For Firefox */
+* {
+    scrollbar-width: thin;
+    scrollbar-color: #888 #f1f1f1;
 }
