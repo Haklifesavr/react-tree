@@ -27,8 +27,8 @@
     border-radius: 10px; /* Add rounded corners for a modern design */
     width: 100%;
     max-width: 65%;
-    height: 50vh;
-    max-height: 100vh;
+    min-height: 50vh;
+    /* max-height: 100vh; */
     overflow-y: auto;
     border: 2px solid lightgray;
     margin: 0 auto; /* Center the container */

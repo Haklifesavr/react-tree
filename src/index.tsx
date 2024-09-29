@@ -50,7 +50,7 @@ class TreeBasicExample extends React.Component<any, TreeBasicExampleState> {
     // Fetch categories from the API
     fetchCategories = async () => {
         try {
-            const response = await fetch('http://localhost:8000/api/categories/');
+            const response = await fetch('https://iron-atom-349812.uc.r.appspot.com/api/categories/');
             const data = await response.json();
             this.setState({ categories: data });
         } catch (error) {
@@ -158,7 +158,7 @@ class TreeBasicExample extends React.Component<any, TreeBasicExampleState> {
 
         if (currentCategory) {
             try {
-                const response = await fetch(`http://localhost:8000/api/categories/${currentCategory.id}/`, {
+                const response = await fetch(`https://iron-atom-349812.uc.r.appspot.com/api/categories/${currentCategory.id}/`, {
                     method: 'PUT',
                     headers: {
                         'Content-Type': 'application/json',
@@ -198,7 +198,7 @@ class TreeBasicExample extends React.Component<any, TreeBasicExampleState> {
             console.log(`Subcategory with ID: ${draggedItemId} is being moved to Category with ID: ${newParentId}`);
 
             try {
-                const response = await fetch('http://localhost:8000/api/categories/drag_and_drop/', {
+                const response = await fetch('https://iron-atom-349812.uc.r.appspot.com/api/categories/drag_and_drop/', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
