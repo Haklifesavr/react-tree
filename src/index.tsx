@@ -25,6 +25,7 @@ interface TreeBasicExampleState {
     expandedItems: { [key: number]: boolean }; // Track expanded state for categories
     searchTerm: string; // Track search term
     searchResults: number[]; // Track matching categories' IDs
+    loading: boolean; // Loading state to track if data is being fetched
 }
 
 class TreeBasicExample extends React.Component<any, TreeBasicExampleState> {
@@ -39,7 +40,8 @@ class TreeBasicExample extends React.Component<any, TreeBasicExampleState> {
             updatedDescription: '',
             expandedItems: {},
             searchTerm: '', // Initialize searchTerm
-            searchResults: [] // Initialize searchResults
+            searchResults: [], // Initialize searchResults
+            loading: true // Initially loading is true, because we are fetching categories
         };
     }
 
@@ -52,9 +54,10 @@ class TreeBasicExample extends React.Component<any, TreeBasicExampleState> {
         try {
             const response = await fetch('https://iron-atom-349812.uc.r.appspot.com/api/categories/');
             const data = await response.json();
-            this.setState({ categories: data });
+            this.setState({ categories: data, loading: false }); // Set loading to false after fetching data
         } catch (error) {
             console.error('Error fetching categories:', error);
+            this.setState({ loading: false }); // Set loading to false if there is an error
         }
     };
 
@@ -272,7 +275,7 @@ class TreeBasicExample extends React.Component<any, TreeBasicExampleState> {
     };
 
     public render(): JSX.Element {
-        const { categories, isModalOpen, updatedName, updatedDescription } = this.state;
+        const { categories, isModalOpen, updatedName, updatedDescription, loading } = this.state;
 
         return (
             <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
@@ -291,13 +294,20 @@ class TreeBasicExample extends React.Component<any, TreeBasicExampleState> {
                     </button>
                 </div>
 
-                <div className="tree-container" 
+                <div className="tree-container"
+                    style={{
+                        display: this.state.loading ? 'flex' : 'block', // Flexbox for centering content
+                        justifyContent: this.state.loading ? 'center' : 'initial', // Center horizontally
+                        alignItems: this.state.loading ? 'center' : 'initial', // Center vertically
+                    }} 
                      onDragOver={this.handleDragOver} 
                      onDrop={this.handleDropOutside}
                 >
-                    <IgrTree>
-                        {this.renderTreeItems(categories)}
-                    </IgrTree>
+                    {loading ? (
+                        <div className="loader"></div> // Loader is shown while loading
+                    ) : (
+                        <IgrTree>{this.renderTreeItems(categories)}</IgrTree>
+                    )}
                 </div>
 
                 {isModalOpen && (
