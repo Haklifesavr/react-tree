@@ -168,29 +168,22 @@
     background-color: #d32f2f;
 }
 
-/* Scrollbar Styling */
 ::-webkit-scrollbar {
-    width: 8px;
-}
-
-::-webkit-scrollbar-track {
+    width: 8px;  /* Reduced from 10px for vertical scrollbars */
+  }
+  
+  ::-webkit-scrollbar-track {
     background: #f1f1f1;
-}
-
-::-webkit-scrollbar-thumb {
-    background-color: #888;
-    border-radius: 10px;
-}
-
-::-webkit-scrollbar-thumb:hover {
+  }
+  
+  ::-webkit-scrollbar-thumb {
+    background: #888;
+    border-radius: 4px; /* Slightly reduced to match the new size */
+  }
+  
+  ::-webkit-scrollbar-thumb:hover {
     background: #555;
-}
-
-/* For Firefox */
-* {
-    scrollbar-width: thin;
-    scrollbar-color: #888 #f1f1f1;
-}
+  }
 
 /* Loader Styling */
 .loader {
