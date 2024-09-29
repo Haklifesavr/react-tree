@@ -64,6 +64,12 @@
     font-size: 18px;
 }
 
+/* Override the default active state styles */
+::part(wrapper) {
+    background: inherit !important;
+    color: inherit !important;
+}
+
 /* Highlight Matching Items */
 .highlight {
     background-color: rgb(171, 223, 251);
