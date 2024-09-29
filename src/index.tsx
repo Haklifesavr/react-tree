@@ -191,9 +191,9 @@ class TreeBasicExample extends React.Component<any, TreeBasicExampleState> {
 
     public render(): JSX.Element {
         const { categories, isModalOpen, updatedName, updatedDescription } = this.state;
-
+    
         return (
-            <div>
+            <div style={{ display: 'flex', flexDirection: 'column' }}>
                 <div className="tree-container" 
                      onDragOver={this.handleDragOver} 
                      onDrop={this.handleDropOutside}
@@ -202,7 +202,7 @@ class TreeBasicExample extends React.Component<any, TreeBasicExampleState> {
                         {this.renderTreeItems(categories)}
                     </IgrTree>
                 </div>
-
+    
                 {isModalOpen && (
                     <div className="modal">
                         <div className="modal-content">

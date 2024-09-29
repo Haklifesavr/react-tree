@@ -1,6 +1,5 @@
 .tree-item-wrapper {
     position: relative;
-    min-height: 40px;
 }
 
 .edit-icon {
@@ -19,14 +18,30 @@
 }
 
 .tree-container {
-    background-color: #f8f9fa; /* Light background shade */
-    height: 100vh; /* Full height of the viewport */
-    max-height: 100vh; /* Ensure it does not exceed the viewport */
-    overflow: auto; /* Enable scrolling only when necessary */
-    border: 2px dashed lightgray;
-    position: relative;
-    padding: 10px; /* Add some padding */
+    background-color: #f1f1f1; /* Light background shade */
+    min-height: 97.2vh;
+    max-height: 100vh;
+    overflow-y: auto;
+    border: 2px solid lightgray;
 }
+
+::-webkit-scrollbar {
+    width: 8px;  /* Reduced from 10px for vertical scrollbars */
+    /* height: 6px !important; */
+  }
+  
+  ::-webkit-scrollbar-track {
+    background: #f1f1f1;
+  }
+  
+  ::-webkit-scrollbar-thumb {
+    background: #888;
+    border-radius: 4px; /* Slightly reduced to match the new size */
+  }
+  
+  ::-webkit-scrollbar-thumb:hover {
+    background: #555;
+  }
 
 .modal {
     position: fixed;
