@@ -63,51 +63,63 @@ class TreeBasicExample extends React.Component<any, TreeBasicExampleState> {
         this.setState({ searchTerm: event.target.value });
     };
 
-    // Expand parent categories and highlight them
-    expandParentCategories = (categoryId: number | null) => {
-        if (categoryId === null) return; // If no parent, stop recursion
+    expandAndHighlightParents = (
+        categoryId: number | null, 
+        expandedItems: { [key: number]: boolean }, 
+        searchResults: number[]
+      ): { expandedItems: { [key: number]: boolean }, searchResults: number[] } => {
+        
+        if (categoryId === null) return { expandedItems, searchResults };
 
-        const category = this.state.categories.find(cat => cat.id === categoryId);
+        const category = this.findCategoryById(this.state.categories, categoryId);
         if (category) {
-            this.setState((prevState) => ({
-                expandedItems: { ...prevState.expandedItems, [category.id]: true },
-                searchResults: [...prevState.searchResults, category.id] // Highlight the parent as well
-            }));
+            expandedItems[category.id] = true;
+            searchResults.push(category.id);
 
             if (category.parent !== null) {
-                this.expandParentCategories(category.parent);
+                return this.expandAndHighlightParents(category.parent, expandedItems, searchResults);
             }
         }
+
+        return { expandedItems, searchResults };
     };
 
-    // Updated search logic
+    findCategoryById = (categories: Category[], id: number): Category | null => {
+        for (const category of categories) {
+            if (category.id === id) return category;
+            if (category.subcategories) {
+                const found = this.findCategoryById(category.subcategories, id);
+                if (found) return found;
+            }
+        }
+        return null;
+    };
+
     handleSearch = () => {
         const { categories, searchTerm } = this.state;
-        const searchResults: number[] = [];
+        let expandedItems: { [key: number]: boolean } = {};
+        let searchResults: number[] = [];
 
         const searchCategories = (category: Category) => {
             if (
                 category.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
                 category.description.toLowerCase().includes(searchTerm.toLowerCase())
             ) {
-                searchResults.push(category.id); // Highlight the matching category
-
+                searchResults.push(category.id);
                 if (category.parent !== null) {
-                    this.expandParentCategories(category.parent);
+                    ({ expandedItems, searchResults } = this.expandAndHighlightParents(category.parent, expandedItems, searchResults));
                 }
             }
 
-            // Recursively search subcategories
             if (category.subcategories && category.subcategories.length > 0) {
                 category.subcategories.forEach(searchCategories);
             }
         };
 
         categories.forEach(searchCategories);
-        this.setState({ searchResults });
+        this.setState({ expandedItems, searchResults });
     };
 
-    // Handle Enter key press in the search input
     handleKeyPress = (event: React.KeyboardEvent) => {
         if (event.key === 'Enter') {
             this.handleSearch();
@@ -224,7 +236,7 @@ class TreeBasicExample extends React.Component<any, TreeBasicExampleState> {
 
     // Render tree items and overlay the edit icon
     renderTreeItems = (categories: Category[]) => {
-        const { searchResults } = this.state;
+        const { searchResults, expandedItems } = this.state;
 
         if (!categories || categories.length === 0) {
             return null;
@@ -232,6 +244,7 @@ class TreeBasicExample extends React.Component<any, TreeBasicExampleState> {
 
         return categories.map((category) => {
             const isHighlighted = searchResults.includes(category.id);
+            const isExpanded = expandedItems[category.id] || false;
 
             return (
                 <div key={category.id} className="tree-item-wrapper">
@@ -239,7 +252,7 @@ class TreeBasicExample extends React.Component<any, TreeBasicExampleState> {
                         key={category.id}
                         label={category.name}
                         value={category}
-                        expanded={this.state.expandedItems[category.id]} // Expand only if necessary
+                        expanded={isExpanded}
                         className={isHighlighted ? 'highlight' : ''}
                     >
                         {category.subcategories && this.renderTreeItems(category.subcategories)}
