@@ -252,6 +252,10 @@ class TreeBasicExample extends React.Component<any, TreeBasicExampleState> {
                         key={category.id}
                         label={category.name}
                         value={category}
+                        draggable="true"
+                        onDragStart={(event: React.DragEvent) => this.handleDragStart(event, category.id)} // Start dragging
+                        onDragOver={(event: React.DragEvent) => this.handleDragOver(event)} // Allow dropping
+                        onDrop={(event: React.DragEvent) => this.handleDrop(event, category.id)} // Handle drop and log the ids
                         expanded={isExpanded}
                         className={isHighlighted ? 'highlight' : ''}
                     >

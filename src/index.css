@@ -21,10 +21,13 @@
 
 /* Tree Container Styling */
 .tree-container {
-    background-color: #f1f1f1; /* Light background shade */
+    background-color: #ffffff; /* White background */
+    border: 1px solid #e0e0e0; /* Lighter border for a more subtle look */
+    box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.05); /* Soft shadow for depth */
+    border-radius: 10px; /* Add rounded corners for a modern design */
     width: 100%;
     max-width: 65%;
-    height: auto;
+    height: 50vh;
     max-height: 100vh;
     overflow-y: auto;
     border: 2px solid lightgray;
