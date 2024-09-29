@@ -152,6 +152,13 @@ class TreeBasicExample extends React.Component<any, TreeBasicExampleState> {
         event.stopPropagation(); // Prevent parent categories from triggering this event
     };
 
+    // Handle drop outside of any category
+    handleDropOutside = (event: React.DragEvent) => {
+        event.preventDefault();
+        console.log('Dropped in empty space. Moving item to the top-level.');
+        this.handleDrop(event, null); // Handle drop as top-level (null category_id)
+    };
+
     // Render tree items and overlay the edit icon
     renderTreeItems = (categories: Category[]) => {
         if (!categories || categories.length === 0) {
@@ -187,7 +194,10 @@ class TreeBasicExample extends React.Component<any, TreeBasicExampleState> {
 
         return (
             <div>
-                <div className='tree-container'>
+                <div className="tree-container" 
+                     onDragOver={this.handleDragOver} 
+                     onDrop={this.handleDropOutside}
+                >
                     <IgrTree>
                         {this.renderTreeItems(categories)}
                     </IgrTree>
