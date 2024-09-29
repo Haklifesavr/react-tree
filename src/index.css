@@ -23,7 +23,7 @@
 .tree-container {
     background-color: #f1f1f1; /* Light background shade */
     width: 100%;
-    max-width: 900px;
+    max-width: 65%;
     height: auto;
     max-height: 100vh;
     overflow-y: auto;
@@ -40,7 +40,7 @@
     margin-top: 10px;
     margin-bottom: 20px;
     width: 100%;
-    max-width: 600px; /* Matches tree-container width */
+    max-width: 50%; /* Matches tree-container width */
     position: relative;
 }
 
